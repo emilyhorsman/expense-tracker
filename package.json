@@ -38,8 +38,11 @@
     "webpack-merge": "^0.14.0"
   },
   "dependencies": {
+    "immutable": "^3.8.1",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
-    "react-router": "^2.4.1"
+    "react-redux": "^4.4.5",
+    "react-router": "^2.4.1",
+    "redux": "^3.5.2"
   }
 }
