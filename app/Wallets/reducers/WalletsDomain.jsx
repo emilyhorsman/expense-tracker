@@ -8,15 +8,6 @@ const newWallet = Map({
 	amount: 0,
 })
 
-const initialWalletsDomain = {
-	wallets: List(),
-	newWallet: {
-		pristine: true,
-		errors: Map(),
-		form: newWallet,
-	},
-}
-
 const validator = (key, value) => {
 	return false
 }
@@ -24,7 +15,7 @@ const validator = (key, value) => {
 const WalletsDomain = {}
 
 export default createReducer({
-	initialState: initialWalletsDomain,
+	blankItem: newWallet,
 	singularKey: 'wallet',
 	pluralKey: 'wallets',
 	validator,

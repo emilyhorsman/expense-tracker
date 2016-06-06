@@ -1,15 +1,24 @@
-import { is, Map } from 'immutable'
+import { is, List, Map } from 'immutable'
 
 export function createReducer({
 	singularKey,
 	pluralKey,
 	validator,
 	reducer,
-	initialState,
+	blankItem,
 }) {
 	const FORM_CHANGE = `NEW_${singularKey.toUpperCase()}_CHANGE`
 	const FORM_SUBMIT = `NEW_${singularKey.toUpperCase()}_SUBMIT`
 	const formKey = 'new' + singularKey.charAt(0).toUpperCase() + singularKey.slice(1)
+
+	const initialState = {
+		[pluralKey]: List(),
+		[formKey]: {
+			pristine: true,
+			errors: Map(),
+			form: blankItem,
+		},
+	}
 
 	const validate = (form, state) => {
 		return form.reduce((errors, value, key) => {

@@ -9,15 +9,6 @@ const newExpense = Map({
 	date: inputDateTypeFormat(new Date()),
 })
 
-const initialExpensesDomain = {
-	expenses: List(),
-	newExpense: {
-		pristine: true,
-		errors: Map(),
-		form: newExpense,
-	},
-}
-
 const validator = (key, value) => {
 	if (key === 'amount' && value <= 0) {
 		return 'Must be greater than zero!'
@@ -33,7 +24,7 @@ const validator = (key, value) => {
 const ExpensesDomain = {}
 
 export default createReducer({
-	initialState: initialExpensesDomain,
+	blankItem: newExpense,
 	singularKey: 'expense',
 	pluralKey: 'expenses',
 	validator,
