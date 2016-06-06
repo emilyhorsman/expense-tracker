@@ -23,6 +23,14 @@ const devToolsWrapper = window.devToolsExtension ? window.devToolsExtension() : 
 const createFinalStore = compose(devToolsWrapper)(createStore)
 const store = createFinalStore(reducer)
 
+import { writeToStorage } from './helpers/Storage'
+const handleChange = () => {
+	const state = store.getState()
+	writeToStorage('wallets', state.WalletsDomain.wallets)
+	writeToStorage('expenses', state.ExpensesDomain.expenses)
+}
+store.subscribe(handleChange)
+
 render(
 	<Provider store={store}>
 		<Router history={browserHistory}>

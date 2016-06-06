@@ -1,5 +1,7 @@
 import { is, List, Map } from 'immutable'
 
+import { retrieveFromStorage } from './Storage'
+
 export function createReducer({
 	singularKey,
 	pluralKey,
@@ -12,7 +14,7 @@ export function createReducer({
 	const formKey = 'new' + singularKey.charAt(0).toUpperCase() + singularKey.slice(1)
 
 	const initialState = {
-		[pluralKey]: List(),
+		[pluralKey]: retrieveFromStorage(pluralKey) || List(),
 		[formKey]: {
 			pristine: true,
 			errors: Map(),
