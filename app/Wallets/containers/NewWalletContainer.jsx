@@ -20,10 +20,6 @@ class NewWalletContainer extends Component {
 	}
 
 	getValue(key, event) {
-		if (key === 'amount') {
-			return parseFloat(event.target.value)
-		}
-
 		return event.target.value
 	}
 

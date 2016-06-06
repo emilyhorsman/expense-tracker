@@ -15,10 +15,6 @@ class NewExpenseContainer extends Component {
 	}
 
 	getValue(key, event) {
-		if (key === 'amount') {
-			return parseFloat(event.target.value)
-		}
-
 		if (key === 'walletId') {
 			return parseInt(event.target.value)
 		}

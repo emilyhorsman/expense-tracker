@@ -11,7 +11,7 @@ const newExpense = Map({
 })
 
 const validator = (key, value) => {
-	if (key === 'amount' && value <= 0) {
+	if (key === 'amount' && parseFloat(value) <= 0) {
 		return 'Must be greater than zero!'
 	}
 

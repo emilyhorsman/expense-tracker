@@ -63,11 +63,15 @@ export function createReducer({
 					return state
 				}
 
-				const newItem = state[formKey].form.merge({
+				let newItem = state[formKey].form.merge({
 					id: state[pluralKey].count(),
 					createdAt: Date.now(),
 					updatedAt: Date.now(),
 				})
+
+				if (newItem.has('amount')) {
+					newItem = newItem.set('amount', parseFloat(newItem.get('amount')))
+				}
 
 				return {
 					...state,
