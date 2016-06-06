@@ -1,6 +1,7 @@
 import { List, Map } from 'immutable'
 
 import { createReducer } from '~/helpers/Reducers'
+const currencyCodes = require('~/data/CurrencyCodes.json')
 
 const newWallet = Map({
 	name: '',
@@ -8,7 +9,20 @@ const newWallet = Map({
 	amount: 0,
 })
 
-const validator = (key, value) => {
+const validator = (key, value, state) => {
+	if (key === 'name' && value.trim() === '') {
+		return 'Cannot be a blank name';
+	}
+
+	if (key === 'name' &&
+		state.wallets.some(wallet => wallet.name === value)) {
+			return 'A wallet with that name already exists'
+	}
+
+	if (key === 'currency' && !currencyCodes.includes(value)) {
+		return 'Not a valid currency code'
+	}
+
 	return false
 }
 
