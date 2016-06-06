@@ -12,9 +12,11 @@ import ExpensesIndexContainer from './Expenses/containers/ExpensesIndexContainer
 
 import ExpensesDomain from './Expenses/reducers/ExpensesDomain'
 import SettingsDomain from './Settings/reducers/SettingsDomain'
+import WalletsDomain from './Wallets/reducers/WalletsDomain'
 const reducer = combineReducers({
 	ExpensesDomain,
 	SettingsDomain,
+	WalletsDomain,
 })
 
 const devToolsWrapper = window.devToolsExtension ? window.devToolsExtension() : f => f

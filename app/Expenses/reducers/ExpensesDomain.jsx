@@ -25,7 +25,7 @@ const _validate = (key, value) => {
 		return 'Should not be foo'
 	}
 
-	return null
+	return false
 }
 
 const validate = (form) => {
