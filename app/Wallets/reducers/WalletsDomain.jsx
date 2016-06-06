@@ -27,6 +27,6 @@ export default createReducer({
 	initialState: initialWalletsDomain,
 	singularKey: 'wallet',
 	pluralKey: 'wallets',
-	validator: validator,
+	validator,
 	reducer: WalletsDomain,
 })
