@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import NewWalletContainer from '~/Wallets/containers/NewWalletContainer'
 import NewExpenseContainer from './NewExpenseContainer'
 import Expense from '../components/Expense'
+import ExpenseForm from '../components/ExpenseForm'
 import Wallet from '~/Wallets/components/Wallet'
 
 class ExpensesIndexContainer extends Component {
@@ -30,7 +31,9 @@ class ExpensesIndexContainer extends Component {
 						<Expense
 							key={expense.get('id')}
 							{...expense.toObject()}
-						/>
+						>
+
+						</Expense>
 					)}
 				</ol>
 
