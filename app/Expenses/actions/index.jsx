@@ -12,3 +12,26 @@ export function handleNewExpenseSubmit(action = {}) {
 		...action
 	}
 }
+
+export function handleEditExpenseChange(id, key, value) {
+	return {
+		type: 'EDIT_EXPENSE_CHANGE',
+		id,
+		key,
+		value,
+	}
+}
+
+export function handleEditExpenseSubmit(id) {
+	return {
+		type: 'EDIT_EXPENSE_SUBMIT',
+		id,
+	}
+}
+
+export function handleEditExpenseStart(id) {
+	return {
+		type: 'EDIT_EXPENSE_START',
+		id,
+	}
+}

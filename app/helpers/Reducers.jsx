@@ -2,6 +2,12 @@ import { is, List, Map } from 'immutable'
 
 import { retrieveFromStorage } from './Storage'
 
+export function mergeEditItems(editItems, items) {
+	return items.map(item => {
+		return item.set('edit', editItems.find((_, key) => key === item.get('id')))
+	})
+}
+
 export function createReducer({
 	singularKey,
 	pluralKey,
@@ -122,14 +128,19 @@ export function createReducer({
 
 			case EDIT_FORM_SUBMIT:
 				const curItem = state[pluralKey].get(action.id)
-				const form = state[editFormKey].get(action.id).form
-				const nextItem = curItem.merge(form).merge({
+				const editForm = state[editFormKey].get(action.id).form
+				let nextItem = curItem.merge(editForm).merge({
 					updatedAt: Date.now(),
 				})
+
+				if (nextItem.has('amount')) {
+					nextItem = nextItem.set('amount', parseFloat(nextItem.get('amount')))
+				}
 
 				return {
 					...state,
 					[pluralKey]: state[pluralKey].set(action.id, nextItem),
+					[editFormKey]: state[editFormKey].delete(action.id),  // Clear the editing state
 				}
 
 			default:
