@@ -7,6 +7,17 @@ import Expense from '../components/Expense'
 import Wallet from '~/Wallets/components/Wallet'
 
 class ExpensesIndexContainer extends Component {
+	computeAmount(wallet) {
+		const id = wallet.get('id')
+		return this.props.expenses.reduce((amount, expense) => {
+			if (expense.get('walletId') !== id) {
+				return amount
+			}
+
+			return amount - expense.get('amount')
+		}, wallet.get('amount'))
+	}
+
 	render() {
 		const { expenses, currency, wallets } = this.props
 
@@ -31,6 +42,7 @@ class ExpensesIndexContainer extends Component {
 						<Wallet
 							key={wallet.get('id')}
 							{...wallet.toObject()}
+							amount={this.computeAmount(wallet)}
 						/>
 					)}
 				</ol>
