@@ -34,7 +34,13 @@ class NewExpenseContainer extends Component {
 	render() {
 		const { newExpense, wallets } = this.props
 
-		const disabled = wallets.isEmpty() || !newExpense.errors.isEmpty() || newExpense.pristine
+		const disabled = (
+			wallets.isEmpty() ||
+			!newExpense.errors.isEmpty() ||
+			newExpense.pristine ||
+			!Number.isInteger(newExpense.form.get('walletId'))
+		)
+
 		return (
 			<ExpenseForm
 				{...newExpense.form.toObject()}
