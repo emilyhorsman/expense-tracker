@@ -1,9 +1,19 @@
 import React from 'react'
 
+function validationErrors(errors) {
+	if (!errors) {
+		return null
+	}
+
+	return <div>{errors}</div>
+}
+
 export default function NewExpenseForm(props) {
+	const { errors } = props
+
 	return (
 		<form onSubmit={props.handleSubmit}>
-			<div>
+			<div className={errors.description ? 'error' : ''}>
 				<label>
 					Description:
 					<input
@@ -13,9 +23,11 @@ export default function NewExpenseForm(props) {
 						onChange={props.handleChange.bind(null, 'description')}
 					/>
 				</label>
+
+				{validationErrors(errors.description)}
 			</div>
 
-			<div>
+			<div className={errors.amount ? 'error' : ''}>
 				<label>
 					Amount:
 					<input
@@ -26,9 +38,11 @@ export default function NewExpenseForm(props) {
 						onChange={props.handleChange.bind(null, 'amount')}
 					/>
 				</label>
+
+				{validationErrors(errors.amount)}
 			</div>
 
-			<div>
+			<div className={errors.date ? 'error' : ''}>
 				<label>
 					Date:
 					<input
@@ -37,6 +51,8 @@ export default function NewExpenseForm(props) {
 						onChange={props.handleChange.bind(null, 'date')}
 					/>
 				</label>
+
+				{validationErrors(errors.date)}
 			</div>
 
 			<div>
