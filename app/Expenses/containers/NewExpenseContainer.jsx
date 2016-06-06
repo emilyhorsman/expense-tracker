@@ -9,12 +9,18 @@ import ExpenseForm from '../components/ExpenseForm'
 class NewExpenseContainer extends Component {
 	handleSubmit(event) {
 		event.preventDefault()
-		this.props.actions.handleNewExpenseSubmit()
+		this.props.actions.handleNewExpenseSubmit({
+			form: this.props.newExpense.form
+		})
 	}
 
 	getValue(key, event) {
 		if (key === 'amount') {
 			return parseFloat(event.target.value)
+		}
+
+		if (key === 'walletId') {
+			return parseInt(event.target.value)
 		}
 
 		return event.target.value
@@ -26,11 +32,15 @@ class NewExpenseContainer extends Component {
 	}
 
 	render() {
+		const { newExpense, wallets } = this.props
+
+		const disabled = wallets.isEmpty() || !newExpense.errors.isEmpty() || newExpense.pristine
 		return (
 			<ExpenseForm
-				{...this.props.form.toObject()}
-				errors={this.props.errors.toObject()}
-				disabled={this.props.errors.count() > 0 || this.props.pristine}
+				{...newExpense.form.toObject()}
+				errors={newExpense.errors.toObject()}
+				disabled={disabled}
+				wallets={wallets.toArray()}
 				handleSubmit={this.handleSubmit.bind(this)}
 				handleChange={this.handleChange.bind(this)}
 			/>
@@ -39,7 +49,10 @@ class NewExpenseContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-	return state.ExpensesDomain.newExpense
+	return {
+		newExpense: state.ExpensesDomain.newExpense,
+		wallets: state.WalletsDomain.wallets,
+	}
 }
 
 const mapDispatchToProps = (dispatch) => {

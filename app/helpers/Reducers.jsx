@@ -31,7 +31,7 @@ export function createReducer({
 
 	return function(state = initialState, action) {
 		if (reducer.hasOwnProperty(action.type)) {
-			return reducer(state, action)
+			return reducer[action.type](state, action)
 		}
 
 		// Note: a form change action could be setting some default values

@@ -6,8 +6,9 @@ export function handleNewExpenseChange(key, value) {
 	}
 }
 
-export function handleNewExpenseSubmit() {
+export function handleNewExpenseSubmit(action = {}) {
 	return {
 		type: 'NEW_EXPENSE_SUBMIT',
+		...action
 	}
 }

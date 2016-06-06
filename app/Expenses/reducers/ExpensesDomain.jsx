@@ -7,6 +7,7 @@ const newExpense = Map({
 	description: '',
 	amount: 0,
 	date: inputDateTypeFormat(new Date()),
+	walletId: null,
 })
 
 const validator = (key, value) => {

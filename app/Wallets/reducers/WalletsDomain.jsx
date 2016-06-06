@@ -27,6 +27,19 @@ const validator = (key, value, state) => {
 }
 
 const WalletsDomain = {}
+WalletsDomain.NEW_EXPENSE_SUBMIT = (state, action) => {
+	return {
+		...state,
+		wallets: state.wallets.map(wallet => {
+			if (wallet.get('id') !== action.form.get('walletId')) {
+				return wallet
+			}
+			
+			const newAmount = wallet.get('amount') - action.form.get('amount')
+			return wallet.set('amount', newAmount)
+		}),
+	}
+}
 
 export default createReducer({
 	blankItem: newWallet,

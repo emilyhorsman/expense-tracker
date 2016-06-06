@@ -4,10 +4,11 @@ import { connect } from 'react-redux'
 import NewWalletContainer from '~/Wallets/containers/NewWalletContainer'
 import NewExpenseContainer from './NewExpenseContainer'
 import Expense from '../components/Expense'
+import Wallet from '~/Wallets/components/Wallet'
 
 class ExpensesIndexContainer extends Component {
 	render() {
-		const { expenses, currency } = this.props
+		const { expenses, currency, wallets } = this.props
 
 		return (
 			<main>
@@ -24,6 +25,15 @@ class ExpensesIndexContainer extends Component {
 				</ol>
 
 				<NewWalletContainer />
+
+				<ol>
+					{wallets.map(wallet =>
+						<Wallet
+							key={wallet.get('id')}
+							{...wallet.toObject()}
+						/>
+					)}
+				</ol>
 			</main>
 		)
 	}
@@ -38,6 +48,7 @@ const mapStateToProps = (state) => {
 	return {
 		expenses: state.ExpensesDomain.expenses.toArray(),
 		currency: state.SettingsDomain.currency,
+		wallets: state.WalletsDomain.wallets.toArray(),
 	}
 }
 
