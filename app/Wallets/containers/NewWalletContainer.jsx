@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import * as actions from '../actions'
 
-import NewWalletForm from '../components/NewWalletForm'
+import WalletForm from '../components/WalletForm'
 const currencyCodes = require('~/data/CurrencyCodes.json')
 
 class NewWalletContainer extends Component {
@@ -36,7 +36,7 @@ class NewWalletContainer extends Component {
 		const { newWallet, defaultCurrencyCode } = this.props
 
 		return (
-			<NewWalletForm
+			<WalletForm
 				{...newWallet.form.toObject()}
 				errors={newWallet.errors.toObject()}
 				disabled={newWallet.errors.count() > 0 || newWallet.pristine}

@@ -2,7 +2,7 @@ import React from 'react'
 
 import FormRow from '~/FormHelpers/components/FormRow'
 
-export default function NewWalletForm(props) {
+export default function WalletForm(props) {
 	const { errors, handleChange } = props
 
 	return (

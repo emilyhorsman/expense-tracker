@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 import * as actions from '../actions'
 
-import NewExpenseForm from '../components/NewExpenseForm'
+import ExpenseForm from '../components/ExpenseForm'
 
 class NewExpenseContainer extends Component {
 	handleSubmit(event) {
@@ -27,7 +27,7 @@ class NewExpenseContainer extends Component {
 
 	render() {
 		return (
-			<NewExpenseForm
+			<ExpenseForm
 				{...this.props.form.toObject()}
 				errors={this.props.errors.toObject()}
 				disabled={this.props.errors.count() > 0 || this.props.pristine}

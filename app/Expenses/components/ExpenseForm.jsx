@@ -2,7 +2,7 @@ import React from 'react'
 
 import FormRow from '~/FormHelpers/components/FormRow'
 
-export default function NewExpenseForm(props) {
+export default function ExpenseForm(props) {
 	const { errors } = props
 
 	return (
