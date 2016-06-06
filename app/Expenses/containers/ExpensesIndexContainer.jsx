@@ -1,13 +1,37 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import NewExpenseContainer from './NewExpenseContainer'
+import Expense from '../components/Expense'
 
-export default class ExpensesIndexContainer extends Component {
+class ExpensesIndexContainer extends Component {
 	render() {
+		const { expenses } = this.props
+
 		return (
-			<div>
+			<main>
 				<NewExpenseContainer />
-			</div>
+
+				<ol>
+					{expenses.map(expense =>
+						<Expense {...expense.toObject()} />
+					)}
+				</ol>
+			</main>
 		)
 	}
 }
+
+ExpensesIndexContainer.defaultProps = {
+	expenses: [],
+}
+
+const mapStateToProps = (state) => {
+	return {
+		expenses: state.ExpensesDomain.expenses.toArray(),
+	}
+}
+
+export default connect(
+	mapStateToProps
+)(ExpensesIndexContainer)
