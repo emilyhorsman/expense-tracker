@@ -19,7 +19,7 @@ class ExpensesIndexContainer extends Component {
 	}
 
 	render() {
-		const { expenses, currency, wallets } = this.props
+		const { expenses, wallets } = this.props
 
 		return (
 			<main>
@@ -29,7 +29,6 @@ class ExpensesIndexContainer extends Component {
 					{expenses.map(expense =>
 						<Expense
 							key={expense.get('id')}
-							currency={currency}
 							{...expense.toObject()}
 						/>
 					)}
@@ -57,10 +56,14 @@ ExpensesIndexContainer.defaultProps = {
 }
 
 const mapStateToProps = (state) => {
+	const wallets = state.WalletsDomain.wallets
+	const expenses = state.ExpensesDomain.expenses.map(expense => {
+		return expense.set('wallet', wallets.find(wallet => wallet.get('id') === expense.get('walletId')))
+	})
+
 	return {
-		expenses: state.ExpensesDomain.expenses.toArray(),
-		currency: state.SettingsDomain.currency,
-		wallets: state.WalletsDomain.wallets.toArray(),
+		expenses: expenses.toArray(),
+		wallets: wallets.toArray(),
 	}
 }
 
