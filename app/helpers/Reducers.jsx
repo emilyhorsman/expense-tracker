@@ -35,7 +35,7 @@ export function createReducer({
 		switch (action.type) {
 			case FORM_CHANGE:
 				const form = state[formKey].form.set(action.key, action.value)
-				const errors = validate(form, state)
+				const errors = action.defaultSet ? Map() : validate(form, state)
 
 				return {
 					...state,
@@ -43,7 +43,7 @@ export function createReducer({
 						...state[formKey],
 						form,
 						errors,
-						pristine: is(state[formKey].form, initialState[formKey].form),
+						pristine: action.defaultSet ? true : is(state[formKey].form, initialState[formKey].form),
 					}
 				}
 

@@ -8,6 +8,12 @@ import NewWalletForm from '../components/NewWalletForm'
 const currencyCodes = require('~/data/CurrencyCodes.json')
 
 class NewWalletContainer extends Component {
+	componentDidMount() {
+		this.props.actions.handleNewWalletChange('currency', this.props.defaultCurrencyCode, {
+			defaultSet: true,
+		})
+	}
+
 	handleSubmit(event) {
 		event.preventDefault()
 		this.props.actions.handleNewWalletSubmit()
@@ -27,11 +33,13 @@ class NewWalletContainer extends Component {
 	}
 
 	render() {
+		const { newWallet, defaultCurrencyCode } = this.props
+
 		return (
 			<NewWalletForm
-				{...this.props.form.toObject()}
-				errors={this.props.errors.toObject()}
-				disabled={this.props.errors.count() > 0 || this.props.pristine}
+				{...newWallet.form.toObject()}
+				errors={newWallet.errors.toObject()}
+				disabled={newWallet.errors.count() > 0 || newWallet.pristine}
 				handleSubmit={this.handleSubmit.bind(this)}
 				handleChange={this.handleChange.bind(this)}
 				currencyCodes={currencyCodes}
@@ -41,7 +49,10 @@ class NewWalletContainer extends Component {
 }
 
 const mapStateToProps = (state) => {
-	return state.WalletsDomain.newWallet
+	return {
+		newWallet: state.WalletsDomain.newWallet,
+		defaultCurrencyCode: state.SettingsDomain.settings.get('currency'),
+	}
 }
 
 const mapDispatchToProps = (dispatch) => {

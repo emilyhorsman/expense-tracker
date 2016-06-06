@@ -1,8 +1,9 @@
-export function handleNewWalletChange(key, value) {
+export function handleNewWalletChange(key, value, action = {}) {
 	return {
 		type: 'NEW_WALLET_CHANGE',
 		key,
 		value,
+		...action,
 	}
 }
 
