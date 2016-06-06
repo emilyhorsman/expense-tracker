@@ -32,6 +32,11 @@ export function createReducer({
 			return reducer(state, action)
 		}
 
+		// Note: a form change action could be setting some default values
+		// automatically (not in response to user input). In this case, they can
+		// pass along a defaultSet flag and the form object will not lose its
+		// pristine state, nor run validation. This prevents users from seeing
+		// validation errors prematurely and making the pristine flag useless.
 		switch (action.type) {
 			case FORM_CHANGE:
 				const form = state[formKey].form.set(action.key, action.value)
