@@ -9,8 +9,8 @@ export function createReducer({
 	reducer,
 	blankItem,
 }) {
-	const FORM_CHANGE = `NEW_${singularKey.toUpperCase()}_CHANGE`
-	const FORM_SUBMIT = `NEW_${singularKey.toUpperCase()}_SUBMIT`
+	const NEW_FORM_CHANGE = `NEW_${singularKey.toUpperCase()}_CHANGE`
+	const NEW_FORM_SUBMIT = `NEW_${singularKey.toUpperCase()}_SUBMIT`
 	const formKey = 'new' + singularKey.charAt(0).toUpperCase() + singularKey.slice(1)
 
 	const initialState = {
@@ -40,7 +40,7 @@ export function createReducer({
 		// pristine state, nor run validation. This prevents users from seeing
 		// validation errors prematurely and making the pristine flag useless.
 		switch (action.type) {
-			case FORM_CHANGE:
+			case NEW_FORM_CHANGE:
 				const form = state[formKey].form.set(action.key, action.value)
 				const errors = action.defaultSet ? Map() : validate(form, state)
 
@@ -54,7 +54,7 @@ export function createReducer({
 					}
 				}
 
-			case FORM_SUBMIT:
+			case NEW_FORM_SUBMIT:
 				if (state[formKey].errors.count() > 0) {
 					return state
 				}
@@ -63,7 +63,11 @@ export function createReducer({
 					return state
 				}
 
-				const newItem = state[formKey].form.set('id', state[pluralKey].count())
+				const newItem = state[formKey].form.merge({
+					id: state[pluralKey].count(),
+					createdAt: Date.now(),
+					updatedAt: Date.now(),
+				})
 
 				return {
 					...state,

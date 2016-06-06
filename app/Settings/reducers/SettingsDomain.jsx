@@ -1,7 +1,9 @@
 import { Map } from 'immutable'
 
+import { retrieveFromStorage } from '~/helpers/Storage'
+
 const initialSettingsDomain = {
-	settings: Map({
+	settings: retrieveFromStorage('settings') || Map({
 		currency: 'CAD',
 	}),
 }
