@@ -59,9 +59,11 @@ const ExpensesDomain = (state = initialExpensesDomain, action) => {
 				return state
 			}
 
+			const newItem = state.newExpense.form.set('id', state.expenses.count())
+
 			return {
 				...state,
-				expenses: state.expenses.push(state.newExpense.form),
+				expenses: state.expenses.push(newItem),
 				newExpense: initialExpensesDomain.newExpense,
 			}
 		default:

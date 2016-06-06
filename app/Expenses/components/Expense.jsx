@@ -1,9 +1,11 @@
 import React from 'react'
 
-export default function Expense({ amount, description, date }) {
+import { formatCurrency } from '~/helpers/Currency'
+
+export default function Expense({ amount, description, date, currency }) {
 	return (
 		<li>
-			{date} – {amount}
+			{date} – {formatCurrency(amount, currency)}
 			<div>{description}</div>
 		</li>
 	)

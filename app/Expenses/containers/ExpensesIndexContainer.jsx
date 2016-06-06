@@ -6,7 +6,7 @@ import Expense from '../components/Expense'
 
 class ExpensesIndexContainer extends Component {
 	render() {
-		const { expenses } = this.props
+		const { expenses, currency } = this.props
 
 		return (
 			<main>
@@ -14,7 +14,11 @@ class ExpensesIndexContainer extends Component {
 
 				<ol>
 					{expenses.map(expense =>
-						<Expense {...expense.toObject()} />
+						<Expense
+							key={expense.get('id')}
+							currency={currency}
+							{...expense.toObject()}
+						/>
 					)}
 				</ol>
 			</main>
@@ -24,11 +28,13 @@ class ExpensesIndexContainer extends Component {
 
 ExpensesIndexContainer.defaultProps = {
 	expenses: [],
+	currency: 'CAD',
 }
 
 const mapStateToProps = (state) => {
 	return {
 		expenses: state.ExpensesDomain.expenses.toArray(),
+		currency: state.SettingsDomain.currency,
 	}
 }
 

@@ -20,6 +20,7 @@ export default function NewExpenseForm(props) {
 				<input
 					type="number"
 					min={0}
+					step="any"
 					value={props.amount}
 					placeholder={0}
 					onChange={props.handleChange.bind(null, 'amount')}

@@ -12,8 +12,17 @@ class NewExpenseContainer extends Component {
 		this.props.actions.handleNewExpenseSubmit()
 	}
 
+	getValue(key, event) {
+		if (key === 'amount') {
+			return parseFloat(event.target.value)
+		}
+
+		return event.target.value
+	}
+
 	handleChange(key, event) {
-		this.props.actions.handleNewExpenseChange(key, event.target.value)
+		const value = this.getValue(key, event)
+		this.props.actions.handleNewExpenseChange(key, value)
 	}
 
 	render() {
