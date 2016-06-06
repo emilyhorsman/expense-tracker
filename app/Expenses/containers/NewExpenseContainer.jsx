@@ -20,6 +20,7 @@ class NewExpenseContainer extends Component {
 		return (
 			<NewExpenseForm
 				{...this.props.form.toObject()}
+				errors={this.props.errors.toObject()}
 				disabled={this.props.errors.count() > 0 || this.props.pristine}
 				handleSubmit={this.handleSubmit.bind(this)}
 				handleChange={this.handleChange.bind(this)}

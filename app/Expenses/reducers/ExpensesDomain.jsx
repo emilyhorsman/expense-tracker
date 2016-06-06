@@ -1,8 +1,10 @@
 import { is, List, Map } from 'immutable'
+import { inputDateTypeFormat } from '~/helpers/DateTime'
 
 const newExpense = Map({
 	description: '',
 	amount: 0,
+	date: inputDateTypeFormat(new Date()),
 })
 
 const initialExpensesDomain = {

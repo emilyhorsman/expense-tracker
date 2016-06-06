@@ -29,6 +29,17 @@ export default function NewExpenseForm(props) {
 			</div>
 
 			<div>
+				<label>
+					Date:
+					<input
+						type="date"
+						value={props.date}
+						onChange={props.handleChange.bind(null, 'date')}
+					/>
+				</label>
+			</div>
+
+			<div>
 				<button
 					disabled={props.disabled}
 				>Submit</button>
