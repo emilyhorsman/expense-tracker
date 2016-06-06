@@ -35,7 +35,7 @@ class NewWalletContainer extends Component {
 			<WalletForm
 				{...newWallet.form.toObject()}
 				errors={newWallet.errors.toObject()}
-				disabled={newWallet.errors.count() > 0 || newWallet.pristine}
+				disabled={!newWallet.errors.isEmpty() || newWallet.pristine}
 				handleSubmit={this.handleSubmit.bind(this)}
 				handleChange={this.handleChange.bind(this)}
 				currencyCodes={currencyCodes}

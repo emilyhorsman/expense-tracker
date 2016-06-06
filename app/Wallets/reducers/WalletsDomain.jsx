@@ -15,7 +15,7 @@ const validator = (key, value, state) => {
 	}
 
 	if (key === 'name' &&
-		state.wallets.some(wallet => wallet.name === value)) {
+		state.wallets.some(wallet => wallet.get('name') === value)) {
 			return 'A wallet with that name already exists'
 	}
 

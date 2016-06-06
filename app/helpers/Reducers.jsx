@@ -55,7 +55,7 @@ export function createReducer({
 				}
 
 			case NEW_FORM_SUBMIT:
-				if (state[formKey].errors.count() > 0) {
+				if (!state[formKey].errors.isEmpty()) {
 					return state
 				}
 
