@@ -1,8 +1,8 @@
 export function handleNewExpenseChange(key, value) {
 	return {
 		type: 'NEW_EXPENSE_CHANGE',
-		key: key,
-		value: value,
+		key,
+		value,
 	}
 }
 

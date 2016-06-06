@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import NewWalletContainer from '~/Wallets/containers/NewWalletContainer'
 import NewExpenseContainer from './NewExpenseContainer'
 import Expense from '../components/Expense'
 
@@ -21,6 +22,8 @@ class ExpensesIndexContainer extends Component {
 						/>
 					)}
 				</ol>
+
+				<NewWalletContainer />
 			</main>
 		)
 	}
