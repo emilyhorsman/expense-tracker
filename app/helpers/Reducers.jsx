@@ -2,12 +2,6 @@ import { is, List, Map } from 'immutable'
 
 import { retrieveFromStorage } from './Storage'
 
-export function mergeEditItems(editItems, items) {
-	return items.map(item => {
-		return item.set('edit', editItems.find((_, key) => key === item.get('id')))
-	})
-}
-
 export function createReducer({
 	singularKey,
 	pluralKey,

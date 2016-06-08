@@ -89,15 +89,14 @@ ExpensesIndexContainer.defaultProps = {
 	currency: 'CAD',
 }
 
-const mapStateToProps = (state) => {
-	const wallets = state.WalletsDomain.wallets
-	const expenses = state.ExpensesDomain.expenses.map(expense => {
-		return expense.set('wallet', wallets.find(wallet => wallet.get('id') === expense.get('walletId')))
-	})
+import { editable } from '~/helpers/Selectors'
+import { getWalletEdits, getWallets } from '~/Wallets/Selectors'
+import { getExpenseEdits, getMergedExpenses } from '../Selectors'
 
+const mapStateToProps = (state) => {
 	return {
-		expenses: mergeEditItems(state.ExpensesDomain.editExpenses, expenses).toArray(),
-		wallets: mergeEditItems(state.WalletsDomain.editWallets, wallets).toArray(),
+		expenses: editable(getExpenseEdits(state), getMergedExpenses(state)).toArray(),
+		wallets: editable(getWalletEdits(state), getWallets(state)).toArray(),
 	}
 }
 
