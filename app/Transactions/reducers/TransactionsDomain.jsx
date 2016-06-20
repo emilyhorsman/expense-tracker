@@ -1,16 +1,26 @@
 import { Map } from 'immutable'
 
+import { isValidDate, getFormattedDefaultDate } from '~/helpers/DateTime'
 import { createReducer } from '~/helpers/Reducers'
 import { getWallets } from '~/Wallets/selectors'
 
 const newTransaction = Map({
 	name: '',
 	amount: 0,
+	date: '',
 	walletId: '',
 })
 
 const munge = (item) => {
-	return item.set('amount', parseFloat(item.get('amount')))
+	let _item = item
+
+	_item = _item.set('amount', parseFloat(_item.get('amount')))
+
+	if (!_item.get('date')) {
+		_item = _item.set('date', getFormattedDefaultDate())
+	}
+
+	return _item
 }
 
 const validator = (id, key, value, state) => {
@@ -24,6 +34,10 @@ const validator = (id, key, value, state) => {
 
 	if (key === 'amount' && value === 0) {
 		return 'Amount cannot be zero'
+	}
+
+	if (key === 'date' && !isValidDate(value)) {
+		return 'Invalid date, try ' + getFormattedDefaultDate()
 	}
 
 	return false

@@ -43,6 +43,15 @@ export default function TransactionForm(props) {
 				</select>
 			</FormRow>
 
+			<FormRow errors={errors.date} label="Date:">
+				<input
+					className="form-control"
+					type="date"
+					value={props.date}
+					onChange={handleChange.bind(null, 'date')}
+				/>
+			</FormRow>
+
 			<div>
 				<button
 					className="btn btn-primary"
