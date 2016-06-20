@@ -6,6 +6,7 @@ export const formStartType = (singularKey) => `${singularKey.toUpperCase()}_STAR
 export const formChangeType = (singularKey) => `${singularKey.toUpperCase()}_CHANGE`
 export const formSubmitType = (singularKey) => `${singularKey.toUpperCase()}_SUBMIT`
 export const formClearType = (singularKey) => `${singularKey.toUpperCase()}_CLEAR`
+export const formCancelType = (singularKey) => `${singularKey.toUpperCase()}_CANCEL`
 
 export function createReducer({
 	singularKey,
@@ -19,6 +20,7 @@ export function createReducer({
 	const FORM_CHANGE = formChangeType(singularKey)
 	const FORM_SUBMIT = formSubmitType(singularKey)
 	const FORM_CLEAR  = formClearType(singularKey)
+	const FORM_CANCEL = formCancelType(singularKey)
 
 	const initialState = {
 		[pluralKey]: retrieveFromStorage(pluralKey) || List(),
@@ -118,6 +120,15 @@ export function createReducer({
 
 		const forms = clearForm(state.forms, action.id)
 
+		return { ...state, forms, }
+	}
+
+	genericReducer[FORM_CANCEL] = (state, action) => {
+		if (!state.forms.has(action.id)) {
+			throw new Error('Form does not exist.')
+		}
+
+		const forms = state.forms.delete(action.id)
 		return { ...state, forms, }
 	}
 

@@ -3,6 +3,7 @@ import {
 	formChangeType,
 	formSubmitType,
 	formClearType,
+	formCancelType,
 } from './Reducers'
 
 export function createFormActions({
@@ -42,6 +43,14 @@ export function createFormActions({
 			type: formClearType(singularKey),
 			id,
 			clear,
+			...action,
+		}
+	}
+
+	actions.cancel = (id, action = {}) => {
+		return {
+			type: formCancelType(singularKey),
+			id,
 			...action,
 		}
 	}

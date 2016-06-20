@@ -11,7 +11,7 @@ import { walletForm } from '~/Wallets/actions'
 
 class Dashboard extends Component {
 	componentDidMount() {
-		this.props.actions.walletForm.start(-1)
+		this.props.actions.walletForm.start('NEW')
 	}
 
 	render() {
@@ -21,7 +21,7 @@ class Dashboard extends Component {
 			<div>
 				{walletForm &&
 					<WalletFormContainer
-						formId={-1}
+						formId={'NEW'}
 						clear={true}
 						setDefault={true}
 					/>
@@ -35,7 +35,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		walletForm: getWalletForm(state, -1),
+		walletForm: getWalletForm(state, 'NEW'),
 	}
 }
 

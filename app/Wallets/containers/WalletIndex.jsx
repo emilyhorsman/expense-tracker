@@ -1,22 +1,59 @@
-import { Map } from 'immutable'
+import { Map, List } from 'immutable'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { walletForm } from '../actions'
-import { getWallets } from '../selectors'
+import { getWallets, getOpenWalletForms } from '../selectors'
 import Wallet from '../components/Wallet'
+import WalletFormContainer from './WalletFormContainer'
 
 class WalletIndex extends Component {
+	onEdit(id) {
+		this.props.actions.form.start(id)
+	}
+
+	onCancel(id) {
+		this.props.actions.form.cancel(id)
+	}
+
 	render() {
-		const { wallets } = this.props
+		const { wallets, forms } = this.props
+
+		const items = wallets.reduce((acc, wallet, id) => {
+			const editing = forms.has(id)
+
+			const childProps = {
+				onAction: editing ? this.onCancel.bind(this, id) : this.onEdit.bind(this, id),
+				actionLabel: editing ? 'Cancel' : 'Edit',
+			}
+
+			const base = (
+				<Wallet
+					{...wallet.toObject()}
+					{...childProps}
+					key={`${id}__tease`}
+				/>
+			)
+
+			if (!editing) {
+				return acc.push(base)
+			}
+
+			const form = (
+				<WalletFormContainer
+					formId={id}
+					key={`${id}__form`}
+				/>
+			)
+
+			return acc.push(base, form)
+		}, List())
 
 		return (
-			<div>
-				{wallets.map((wallet, id) =>
-					<Wallet {...wallet.toObject()} key={id} />
-				)}
-			</div>
+			<ul>
+				{items}
+			</ul>
 		)
 	}
 }
@@ -28,6 +65,7 @@ WalletIndex.defaultProps = {
 const mapStateToProps = (state) => {
 	return {
 		wallets: getWallets(state),
+		forms: getOpenWalletForms(state),
 	}
 }
 
