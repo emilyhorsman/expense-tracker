@@ -49,10 +49,13 @@ export function createReducer({
 			return state
 		}
 
-		const item = blankItem.merge(state[pluralKey].find(obj =>
-			obj.get('id') === action.id))
+		const item = blankItem.merge(state[pluralKey].get(action.id))
 
-		const forms = clearForm(state.forms, action.id)
+		const forms = state.forms.set(action.id, {
+			pristine: true,
+			errors: Map(),
+			form: item,
+		})
 
 		return { ...state, forms, }
 	}
@@ -96,8 +99,10 @@ export function createReducer({
 			return state
 		}
 
+		const existing = state[pluralKey].has(action.id)
+
 		const _item = formObj.form.merge({
-			id: state[pluralKey].count(),
+			id: existing ? action.id : state[pluralKey].count(),
 			createdAt: Date.now(),
 			updatedAt: Date.now(),
 		})
@@ -106,9 +111,10 @@ export function createReducer({
 		const forms = action.clear ? clearForm(state.forms, action.id) :
 			state.forms.delete(action.id)
 
+		const items = existing ? state[pluralKey].set(action.id, item) : state[pluralKey].push(item)
 		return {
 			...state,
-			[pluralKey]: state[pluralKey].push(item),
+			[pluralKey]: items,
 			forms,
 		}
 	}
