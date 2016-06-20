@@ -1,4 +1,4 @@
-import { List, Map } from 'immutable'
+import { Map } from 'immutable'
 
 import { createReducer } from '~/helpers/Reducers'
 const currencyCodes = require('~/data/CurrencyCodes.json')
@@ -8,6 +8,10 @@ const newWallet = Map({
 	currency: '',
 	amount: 0,
 })
+
+const munge = (item) => {
+	return item.set('amount', parseFloat(item.get('amount')))
+}
 
 const validator = (id, key, value, state) => {
 	if (key === 'name' && value.trim() === '') {
@@ -34,5 +38,6 @@ export default createReducer({
 	singularKey: 'wallet',
 	pluralKey: 'wallets',
 	validator,
+	munge,
 	reducer: WalletsDomain,
 })

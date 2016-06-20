@@ -13,9 +13,11 @@ import Dashboard from './Dashboard/containers/Dashboard'
 
 import SettingsDomain from './Settings/reducers/SettingsDomain'
 import WalletsDomain from './Wallets/reducers/WalletsDomain'
+import TransactionsDomain from './Transactions/reducers/TransactionsDomain'
 const reducer = combineReducers({
 	SettingsDomain,
 	WalletsDomain,
+	TransactionsDomain,
 })
 
 const devToolsWrapper = window.devToolsExtension ? window.devToolsExtension() : f => f
