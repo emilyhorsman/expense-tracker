@@ -42,7 +42,6 @@ export function createFormActions({
 		return {
 			type: formClearType(singularKey),
 			id,
-			clear,
 			...action,
 		}
 	}

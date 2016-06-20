@@ -90,12 +90,10 @@ export function createReducer({
 
 		const formObj = state.forms.get(action.id)
 		if (!formObj.errors.isEmpty()) {
-			console.log('there were errors')
 			return state
 		}
 
 		if (formObj.pristine) {
-			console.log('it was pristine')
 			return state
 		}
 
