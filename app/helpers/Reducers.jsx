@@ -44,7 +44,7 @@ export function createReducer({
 
 	genericReducer[FORM_START] = (state, action) => {
 		if (state.forms.has(action.id)) {
-			throw new Error('Form already exists.')
+			return state
 		}
 
 		const item = blankItem.merge(state[pluralKey].find(obj =>

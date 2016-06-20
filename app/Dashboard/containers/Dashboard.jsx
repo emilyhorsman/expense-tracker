@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import WalletFormContainer from '~/Wallets/containers/WalletFormContainer'
+import WalletIndex from '~/Wallets/containers/WalletIndex'
 import { getWalletForm } from '~/Wallets/selectors'
 import { walletForm } from '~/Wallets/actions'
 
@@ -25,6 +26,8 @@ class Dashboard extends Component {
 						setDefault={true}
 					/>
 				}
+
+				<WalletIndex />
 			</div>
 		)
 	}
