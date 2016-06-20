@@ -32,7 +32,9 @@ class Dashboard extends Component {
 						/>
 					}
 
-					<WalletIndex />
+					<div className="m-y-1">
+						<WalletIndex />
+					</div>
 				</div>
 			</div>
 		)

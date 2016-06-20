@@ -1,0 +1,6 @@
+$input-padding-x: 0.5rem;
+$input-padding-y: 0.2rem;
+
+.c-select.form-control {
+	padding: $input-padding-y $input-padding-x;
+}
