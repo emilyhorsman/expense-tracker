@@ -1,14 +1,5 @@
-export function handleNewWalletChange(key, value, action = {}) {
-	return {
-		type: 'NEW_WALLET_CHANGE',
-		key,
-		value,
-		...action,
-	}
-}
+import { createFormActions } from '~/helpers/Actions'
 
-export function handleNewWalletSubmit() {
-	return {
-		type: 'NEW_WALLET_SUBMIT',
-	}
-}
+export const walletForm = createFormActions({
+	singularKey: 'wallet',
+})

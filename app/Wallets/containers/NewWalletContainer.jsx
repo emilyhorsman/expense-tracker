@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
+import { getWalletForm } from '../selectors'
 import * as actions from '../actions'
 
 import WalletForm from '../components/WalletForm'
@@ -9,14 +10,14 @@ const currencyCodes = require('~/data/CurrencyCodes.json')
 
 class NewWalletContainer extends Component {
 	componentDidMount() {
-		this.props.actions.handleNewWalletChange('currency', this.props.defaultCurrencyCode, {
+		this.props.actions.walleForm.change('currency', this.props.defaultCurrencyCode, {
 			defaultSet: true,
 		})
 	}
 
 	handleSubmit(event) {
 		event.preventDefault()
-		this.props.actions.handleNewWalletSubmit()
+		this.props.actions.walletForm.start(-1)
 	}
 
 	getValue(key, event) {
@@ -25,17 +26,17 @@ class NewWalletContainer extends Component {
 
 	handleChange(key, event) {
 		const value = this.getValue(key, event)
-		this.props.actions.handleNewWalletChange(key, value)
+		this.props.actions.walletForm.change(-1, key, value)
 	}
 
 	render() {
-		const { newWallet, defaultCurrencyCode } = this.props
+		const { walletForm, defaultCurrencyCode } = this.props
 
 		return (
 			<WalletForm
-				{...newWallet.form.toObject()}
-				errors={newWallet.errors.toObject()}
-				disabled={!newWallet.errors.isEmpty() || newWallet.pristine}
+				{...walletForm.form.toObject()}
+				errors={walletForm.errors.toObject()}
+				disabled={!walletForm.errors.isEmpty() || walletForm.pristine}
 				handleSubmit={this.handleSubmit.bind(this)}
 				handleChange={this.handleChange.bind(this)}
 				currencyCodes={currencyCodes}
@@ -46,7 +47,7 @@ class NewWalletContainer extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		newWallet: state.WalletsDomain.newWallet,
+		walletForm: getWalletForm(state, -1),
 		defaultCurrencyCode: state.SettingsDomain.settings.get('currency'),
 	}
 }

@@ -9,6 +9,8 @@ export const getExpenseEdits = (state) => state.ExpensesDomain.editExpenses
 export const getMergedExpenses = createSelector(
 	getExpenses,
 	getWallets,
-	(expenses, wallets) => expenses.map(expense =>
-		expense.set('wallet', getItemById(wallets, expense.get('walletId'))))
+	(expenses, wallets) => {
+		return expenses.map(expense =>
+			expense.set('wallet', getItemById(wallets, expense.get('walletId'))))
+	}
 )
