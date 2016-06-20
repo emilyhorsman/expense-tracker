@@ -27,9 +27,9 @@ export function createReducer({
 		forms: Map(),
 	}
 
-	const validate = (form, state) => {
+	const validate = (id, form, state) => {
 		return form.reduce((errors, value, key) => {
-			const error = validator(key, value, state)
+			const error = validator(id, key, value, state)
 			return error ? errors.set(key, error) : errors
 		}, Map())
 	}
@@ -72,7 +72,7 @@ export function createReducer({
 
 		const formObj = state.forms.get(action.id)
 		const form = formObj.form.set(action.key, action.value)
-		const errors = action.defaultSet ? Map() : validate(form, state)
+		const errors = action.defaultSet ? Map() : validate(action.id, form, state)
 
 		const forms = state.forms.set(action.id, {
 			form,

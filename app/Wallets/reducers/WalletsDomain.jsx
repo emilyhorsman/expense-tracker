@@ -9,13 +9,14 @@ const newWallet = Map({
 	amount: 0,
 })
 
-const validator = (key, value, state) => {
+const validator = (id, key, value, state) => {
 	if (key === 'name' && value.trim() === '') {
 		return 'Cannot be a blank name';
 	}
 
 	if (key === 'name' &&
-		state.wallets.some(wallet => wallet.get('name') === value)) {
+		state.wallets.some((wallet, _id) =>
+			_id !== id && wallet.get('name') === value)) {
 			return 'A wallet with that name already exists'
 	}
 
