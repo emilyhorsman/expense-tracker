@@ -18,16 +18,22 @@ class Dashboard extends Component {
 		const { walletForm } = this.props
 
 		return (
-			<div>
-				{walletForm &&
-					<WalletFormContainer
-						formId={'NEW'}
-						clear={true}
-						setDefault={true}
-					/>
-				}
+			<div className="row">
+				<div className="col-md-6">
+					expenses here
+				</div>
 
-				<WalletIndex />
+				<div className="col-md-6">
+					{walletForm &&
+						<WalletFormContainer
+							formId={'NEW'}
+							clear={true}
+							setDefault={true}
+						/>
+					}
+
+					<WalletIndex />
+				</div>
 			</div>
 		)
 	}

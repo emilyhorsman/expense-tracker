@@ -5,12 +5,12 @@ function validationErrors(errors) {
 		return null
 	}
 
-	return <div>{errors}</div>
+	return <div><small className="text-muted">{errors}</small></div>
 }
 
 export default function FormRow({ label, errors, children }) {
 	return (
-		<div className={errors ? 'errors' : ''}>
+		<div className={errors ? 'has-danger form-group' : 'form-group'}>
 			<label>
 				{label}
 				{children}

@@ -51,7 +51,7 @@ class WalletIndex extends Component {
 		}, List())
 
 		return (
-			<ul>
+			<ul className="media-list">
 				{items}
 			</ul>
 		)

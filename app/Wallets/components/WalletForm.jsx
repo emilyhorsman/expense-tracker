@@ -9,6 +9,7 @@ export default function WalletForm(props) {
 		<form onSubmit={props.handleSubmit}>
 			<FormRow errors={errors.name} label="Name:">
 				<input
+					className="form-control"
 					type="text"
 					value={props.name}
 					onChange={handleChange.bind(null, 'name')}
@@ -17,6 +18,7 @@ export default function WalletForm(props) {
 
 			<FormRow errors={errors.amount} label="Amount:">
 				<input
+					className="form-control"
 					type="number"
 					step="any"
 					value={props.amount}
@@ -27,6 +29,7 @@ export default function WalletForm(props) {
 
 			<FormRow errors={errors.currency} label="Currency:">
 				<select
+					className="c-select form-control"
 					value={props.currency}
 					onChange={handleChange.bind(null, 'currency')}
 				>
@@ -38,6 +41,7 @@ export default function WalletForm(props) {
 
 			<div>
 				<button
+					className="btn btn-primary"
 					disabled={props.disabled}
 				>Submit</button>
 			</div>

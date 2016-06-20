@@ -9,7 +9,7 @@ class AppContainer extends Component {
 		const childProps = {}
 
 		return (
-			<div>
+			<div className="container-fluid">
 				<SettingsPanelContainer />
 
 				{React.Children.map(children, child => cloneElement(child, childProps))}
