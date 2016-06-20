@@ -13,11 +13,12 @@ export function createReducer({
 	validator,
 	reducer,
 	blankItem,
+	munge,
 }) {
 	const FORM_START  = formStartType(singularKey)
 	const FORM_CHANGE = formChangeType(singularKey)
 	const FORM_SUBMIT = formSubmitType(singularKey)
-	const FORM_CLEAR  = formSubmitType(singularKey)
+	const FORM_CLEAR  = formClearType(singularKey)
 
 	const initialState = {
 		[pluralKey]: retrieveFromStorage(pluralKey) || List(),
@@ -64,16 +65,17 @@ export function createReducer({
 			throw new Error('Form does not exist.')
 		}
 
-		const form = state.forms.get(action.id).form.set(action.key, action.value)
+		const formObj = state.forms.get(action.id)
+		const form = formObj.form.set(action.key, action.value)
 		const errors = action.defaultSet ? Map() : validate(form, state)
 
-		const forms = forms.set(action.id, {
+		const forms = state.forms.set(action.id, {
 			form,
 			errors,
 			pristine: action.defaultSet ? true : is(form, blankItem)
 		})
 
-		return { ...state, form, }
+		return { ...state, forms, }
 	}
 
 	genericReducer[FORM_SUBMIT] = (state, action) => {
@@ -83,29 +85,28 @@ export function createReducer({
 
 		const formObj = state.forms.get(action.id)
 		if (!formObj.errors.isEmpty()) {
+			console.log('there were errors')
 			return state
 		}
 
 		if (formObj.pristine) {
+			console.log('it was pristine')
 			return state
 		}
 
-		let newItem = formObj.form.merge({
+		const _item = formObj.form.merge({
 			id: state[pluralKey].count(),
 			createdAt: Date.now(),
 			updatedAt: Date.now(),
 		})
-
-		if (newItem.has('amount')) {
-			newItem = newItem.set('amount', parseFloat(newItem.get('amount')))
-		}
+		const item = (typeof munge === 'function') ? munge(_item) : _item
 
 		const forms = action.clear ? clearForm(state.forms, action.id) :
 			state.forms.delete(action.id)
 
 		return {
 			...state,
-			[pluralKey]: state[pluralKey].push(newItem),
+			[pluralKey]: state[pluralKey].push(item),
 			forms,
 		}
 	}

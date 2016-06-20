@@ -4,10 +4,11 @@ import React from 'react'
 import { render } from 'react-dom'
 import { combineReducers, createStore, compose } from 'redux'
 import { Provider } from 'react-redux'
-import { Router, IndexRedirect, Route, browserHistory } from 'react-router'
+import { Router, IndexRoute, Route, browserHistory } from 'react-router'
 
 import AppContainer from './App/containers/AppContainer'
 import NotFound from './App/components/NotFound'
+import Dashboard from './Dashboard/containers/Dashboard'
 
 import SettingsDomain from './Settings/reducers/SettingsDomain'
 import WalletsDomain from './Wallets/reducers/WalletsDomain'
@@ -33,6 +34,8 @@ render(
 		<Router history={browserHistory}>
 
 			<Route path="/" component={AppContainer}>
+				<IndexRoute component={Dashboard} />
+
 				<Route path="*" component={NotFound} />
 			</Route>
 

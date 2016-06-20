@@ -3,21 +3,32 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import { getWalletForm } from '../selectors'
-import * as actions from '../actions'
+import { walletForm } from '../actions'
 
 import WalletForm from '../components/WalletForm'
 const currencyCodes = require('~/data/CurrencyCodes.json')
 
-class NewWalletContainer extends Component {
+class WalletFormContainer extends Component {
 	componentDidMount() {
-		this.props.actions.walleForm.change('currency', this.props.defaultCurrencyCode, {
+		this.setCurrency()
+	}
+
+	setCurrency() {
+		const { setDefault, actions, formId, defaultCurrencyCode } = this.props
+		if (!setDefault) {
+			return
+		}
+
+		actions.form.change(formId, 'currency', defaultCurrencyCode, {
 			defaultSet: true,
 		})
 	}
 
 	handleSubmit(event) {
 		event.preventDefault()
-		this.props.actions.walletForm.start(-1)
+
+		this.props.actions.form.submit(this.props.formId, this.props.clear)
+		this.setCurrency()
 	}
 
 	getValue(key, event) {
@@ -26,11 +37,15 @@ class NewWalletContainer extends Component {
 
 	handleChange(key, event) {
 		const value = this.getValue(key, event)
-		this.props.actions.walletForm.change(-1, key, value)
+		this.props.actions.form.change(this.props.formId, key, value)
 	}
 
 	render() {
 		const { walletForm, defaultCurrencyCode } = this.props
+
+		if (!walletForm) {
+			return null
+		}
 
 		return (
 			<WalletForm
@@ -45,20 +60,27 @@ class NewWalletContainer extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
+WalletFormContainer.defaultProps = {
+	clear: false,
+	setDefault: false,
+}
+
+const mapStateToProps = (state, ownProps) => {
 	return {
-		walletForm: getWalletForm(state, -1),
+		walletForm: getWalletForm(state, ownProps.formId),
 		defaultCurrencyCode: state.SettingsDomain.settings.get('currency'),
 	}
 }
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		actions: bindActionCreators(actions, dispatch),
+		actions: {
+			form: bindActionCreators(walletForm, dispatch),
+		},
 	}
 }
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(NewWalletContainer)
+)(WalletFormContainer)

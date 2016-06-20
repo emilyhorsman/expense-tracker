@@ -1,6 +1,6 @@
 import React from 'react'
 
-import FormRow from '~/FormHelpers/components/FormRow'
+import FormRow from '~/Shared/components/FormRow'
 
 export default function WalletForm(props) {
 	const { errors, handleChange } = props
