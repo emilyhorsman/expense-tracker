@@ -9,6 +9,7 @@ import WalletIndex from '~/Wallets/containers/WalletIndex'
 import { getWalletForm } from '~/Wallets/selectors'
 import { walletForm } from '~/Wallets/actions'
 import TransactionFormContainer from '~/Transactions/containers/TransactionFormContainer'
+import TransactionIndex from '~/Transactions/containers/TransactionIndex'
 import { getTransactionForm } from '~/Transactions/selectors'
 import { transactionForm } from '~/Transactions/actions'
 
@@ -30,6 +31,10 @@ class Dashboard extends Component {
 							clear={true}
 						/>
 					}
+
+					<div className="m-y-1">
+						<TransactionIndex />
+					</div>
 				</div>
 
 				<div className="col-md-6">
