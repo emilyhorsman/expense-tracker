@@ -1,4 +1,4 @@
-import { is, List, Map } from 'immutable'
+import { is, Map } from 'immutable'
 
 import { retrieveFromStorage } from './Storage'
 
@@ -23,7 +23,7 @@ export function createReducer({
 	const FORM_CANCEL = formCancelType(singularKey)
 
 	const initialState = {
-		[pluralKey]: retrieveFromStorage(pluralKey) || List(),
+		[pluralKey]: retrieveFromStorage(pluralKey) || Map(),
 		forms: Map(),
 	}
 
@@ -40,6 +40,16 @@ export function createReducer({
 			errors: Map(),
 			form: blankItem,
 		})
+	}
+
+	const getNewId = (items) => {
+		return items.reduce((newId, _, id) => {
+			if (parseInt(id) > newId) {
+				return parseInt(id)
+			}
+
+			return newId
+		}, -1) + 1
 	}
 
 	const genericReducer = {}
@@ -99,8 +109,8 @@ export function createReducer({
 
 		const existing = state[pluralKey].has(action.id)
 
+		const id = existing ? action.id : getNewId(state[pluralKey])
 		const _item = formObj.form.merge({
-			id: existing ? action.id : state[pluralKey].count(),
 			createdAt: Date.now(),
 			updatedAt: Date.now(),
 		})
@@ -109,10 +119,9 @@ export function createReducer({
 		const forms = action.clear ? clearForm(state.forms, action.id) :
 			state.forms.delete(action.id)
 
-		const items = existing ? state[pluralKey].set(action.id, item) : state[pluralKey].push(item)
 		return {
 			...state,
-			[pluralKey]: items,
+			[pluralKey]: state[pluralKey].set(id, item),
 			forms,
 		}
 	}

@@ -6,7 +6,7 @@ import { getWallets } from '~/Wallets/selectors'
 const newTransaction = Map({
 	name: '',
 	amount: 0,
-	walletId: null,
+	walletId: '',
 })
 
 const munge = (item) => {
@@ -18,8 +18,8 @@ const validator = (id, key, value, state) => {
 		return 'Cannot be a blank name'
 	}
 
-	if (key === 'walletId' && !getWallets(state).has(parseFloat(value))) {
-		return 'Wallet does not exist'
+	if (key === 'walletId' && value === '') {
+		return 'Must select a wallet'
 	}
 
 	if (key === 'amount' && value === 0) {

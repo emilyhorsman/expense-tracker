@@ -8,10 +8,14 @@ import WalletFormContainer from '~/Wallets/containers/WalletFormContainer'
 import WalletIndex from '~/Wallets/containers/WalletIndex'
 import { getWalletForm } from '~/Wallets/selectors'
 import { walletForm } from '~/Wallets/actions'
+import TransactionFormContainer from '~/Transactions/containers/TransactionFormContainer'
+import { getTransactionForm } from '~/Transactions/selectors'
+import { transactionForm } from '~/Transactions/actions'
 
 class Dashboard extends Component {
 	componentDidMount() {
 		this.props.actions.walletForm.start('NEW')
+		this.props.actions.transactionForm.start('NEW')
 	}
 
 	render() {
@@ -20,7 +24,12 @@ class Dashboard extends Component {
 		return (
 			<div className="row">
 				<div className="col-md-6">
-					expenses here
+					{transactionForm &&
+						<TransactionFormContainer
+							formId={'NEW'}
+							clear={true}
+						/>
+					}
 				</div>
 
 				<div className="col-md-6">
@@ -44,6 +53,7 @@ class Dashboard extends Component {
 const mapStateToProps = (state) => {
 	return {
 		walletForm: getWalletForm(state, 'NEW'),
+		transactionForm: getTransactionForm(state, 'NEW'),
 	}
 }
 
@@ -51,6 +61,7 @@ const mapDispatchToProps = (dispatch) => {
 	return {
 		actions: {
 			walletForm: bindActionCreators(walletForm, dispatch),
+			transactionForm: bindActionCreators(transactionForm, dispatch),
 		},
 	}
 }

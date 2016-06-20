@@ -29,6 +29,7 @@ const handleChange = () => {
 	const state = store.getState()
 	writeToStorage('wallets', state.WalletsDomain.wallets)
 	writeToStorage('settings', state.SettingsDomain.settings)
+	writeToStorage('transactions', state.TransactionsDomain.transactions)
 }
 store.subscribe(handleChange)
 
