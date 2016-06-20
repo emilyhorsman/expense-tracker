@@ -10,6 +10,8 @@ class AppContainer extends Component {
 
 		return (
 			<div>
+				<SettingsPanelContainer />
+
 				{React.Children.map(children, child => cloneElement(child, childProps))}
 			</div>
 		)

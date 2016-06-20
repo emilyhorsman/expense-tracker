@@ -18,22 +18,16 @@ class Dashboard extends Component {
 		const { walletForm } = this.props
 
 		return (
-			<div className="container is-fluid columns">
-				<div className="column">
-					Expenses here
-				</div>
+			<div>
+				{walletForm &&
+					<WalletFormContainer
+						formId={'NEW'}
+						clear={true}
+						setDefault={true}
+					/>
+				}
 
-				<div className="column">
-					{walletForm &&
-						<WalletFormContainer
-							formId={'NEW'}
-							clear={true}
-							setDefault={true}
-						/>
-					}
-
-					<WalletIndex />
-				</div>
+				<WalletIndex />
 			</div>
 		)
 	}

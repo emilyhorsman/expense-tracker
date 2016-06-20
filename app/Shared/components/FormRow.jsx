@@ -5,13 +5,13 @@ function validationErrors(errors) {
 		return null
 	}
 
-	return <span className="help is-danger">{errors}</span>
+	return <div>{errors}</div>
 }
 
 export default function FormRow({ label, errors, children }) {
 	return (
-		<div className={errors ? 'errors control' : 'control'}>
-			<label className="label">
+		<div className={errors ? 'errors' : ''}>
+			<label>
 				{label}
 				{children}
 			</label>
