@@ -13,9 +13,13 @@ export default function TransactionRow(props) {
 		)
 	}
 
+	const amountClassName = props.transactionType === 'expense' ? '' : 'text-primary'
+
 	return (
 		<tr>
-			<td>{formatCurrency(props.amount, props.walletData.currency)}</td>
+			<td className={amountClassName}>
+				{formatCurrency(props.amount, props.walletData.currency)}
+			</td>
 			<td>{props.date}</td>
 			<td>{props.walletData.name}</td>
 			<td>{props.name}</td>
