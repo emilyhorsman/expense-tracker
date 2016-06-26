@@ -43,13 +43,13 @@ export function createReducer({
 	}
 
 	const getNewId = (items) => {
-		return items.reduce((newId, _, id) => {
+		return (items.reduce((newId, _, id) => {
 			if (parseInt(id) > newId) {
 				return parseInt(id)
 			}
 
 			return newId
-		}, -1) + 1
+		}, -1) + 1).toString()
 	}
 
 	const genericReducer = {}

@@ -10,7 +10,10 @@ const newWallet = Map({
 })
 
 const munge = (item) => {
-	return item.set('amount', parseFloat(item.get('amount')))
+	let _item = item
+	_item = _item.set('amount', parseFloat(item.get('amount')))
+
+	return _item
 }
 
 const validator = (id, key, value, state) => {

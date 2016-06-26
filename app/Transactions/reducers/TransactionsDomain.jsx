@@ -33,8 +33,8 @@ const validator = (id, key, value, state) => {
 		return 'Must select a wallet'
 	}
 
-	if (key === 'amount' && value === 0) {
-		return 'Amount cannot be zero'
+	if (key === 'amount' && value <= 0) {
+		return 'Amount must be greater than zero'
 	}
 
 	if (key === 'date' && !isValidDate(value)) {

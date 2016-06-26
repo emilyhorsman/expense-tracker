@@ -1,10 +1,7 @@
 import React from 'react'
 
 import { formatCurrency } from '~/helpers/Currency'
-
-const getAggregate = (amount, transactionData) => transactionData.reduce((aggregate, transaction) => {
-	return aggregate - transaction.get('amount')
-}, amount)
+import { getAggregate } from '~/Transactions/helpers'
 
 export default function Wallet({ transactionData, name, currency, amount, onAction, actionLabel }) {
 	return (
