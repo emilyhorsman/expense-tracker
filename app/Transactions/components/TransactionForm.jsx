@@ -1,6 +1,8 @@
 import React from 'react'
 
 import FormRow from '~/Shared/components/FormRow'
+import RadioRow from '~/Shared/components/RadioRow'
+import RadioOption from '~/Shared/components/RadioOption'
 
 export default function TransactionForm(props) {
 	const { errors, wallets, handleChange } = props
@@ -15,6 +17,24 @@ export default function TransactionForm(props) {
 					onChange={handleChange.bind(null, 'name')}
 				/>
 			</FormRow>
+
+			<RadioRow>
+				<RadioOption
+					label="Expense"
+					value="expense"
+					field="transactionType"
+					onChange={handleChange}
+					data={props.transactionType}
+				/>
+
+				<RadioOption
+					label="Income"
+					value="income"
+					field="transactionType"
+					onChange={handleChange}
+					data={props.transactionType}
+				/>
+			</RadioRow>
 
 			<FormRow errors={errors.amount} label="Amount:">
 				<input

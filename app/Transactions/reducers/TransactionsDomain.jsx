@@ -9,6 +9,7 @@ const newTransaction = Map({
 	amount: 0,
 	date: '',
 	walletId: '',
+	transactionType: 'expense',
 })
 
 const munge = (item) => {

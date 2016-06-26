@@ -21,6 +21,7 @@ export default function WalletForm(props) {
 					className="form-control"
 					type="number"
 					step="any"
+					min="0"
 					value={props.amount}
 					placeholder={100}
 					onChange={handleChange.bind(null, 'amount')}
