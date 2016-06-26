@@ -7,7 +7,7 @@ import { getWallets } from '~/Wallets/selectors'
 const newTransaction = Map({
 	name: '',
 	amount: 0,
-	date: '',
+	date: getFormattedDefaultDate(),
 	walletId: '',
 	transactionType: 'expense',
 })
@@ -16,10 +16,6 @@ const munge = (item) => {
 	let _item = item
 
 	_item = _item.set('amount', parseFloat(_item.get('amount')))
-
-	if (!_item.get('date')) {
-		_item = _item.set('date', getFormattedDefaultDate())
-	}
 
 	return _item
 }
