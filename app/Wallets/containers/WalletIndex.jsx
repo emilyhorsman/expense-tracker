@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 import { walletForm } from '../actions'
-import { getWallets, getOpenWalletForms } from '../selectors'
+import { getMergedWallets, getOpenWalletForms } from '../selectors'
 import Wallet from '../components/Wallet'
 import WalletFormContainer from './WalletFormContainer'
 
@@ -64,7 +64,7 @@ WalletIndex.defaultProps = {
 
 const mapStateToProps = (state) => {
 	return {
-		wallets: getWallets(state),
+		wallets: getMergedWallets(state),
 		forms: getOpenWalletForms(state),
 	}
 }

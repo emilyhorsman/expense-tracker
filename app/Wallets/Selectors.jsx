@@ -9,3 +9,14 @@ export const getOpenWalletForms = createSelector(
 	getWalletForms,
 	(wallets, forms) => forms.filter((formObj, id) => wallets.has(id))
 )
+
+export const getMergedWallets = createSelector(
+	getWallets,
+	(state) => state.TransactionsDomain.transactions,
+	(wallets, transactions) => wallets.map((wallet, id) =>
+		wallet.set(
+			'transactionData',
+			transactions.filter(trans => trans.get('walletId') === id)
+		)
+	)
+)
