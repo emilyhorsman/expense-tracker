@@ -9,8 +9,11 @@ import { Router, IndexRoute, Route, browserHistory } from 'react-router'
 
 import AppContainer from './App/containers/AppContainer'
 import NotFound from './App/components/NotFound'
+import Models from '~/Models/reducer'
 
-const reducer = combineReducers({})
+const reducer = combineReducers({
+	Models,
+})
 
 const devToolsWrapper = window.devToolsExtension ? window.devToolsExtension() : f => f
 const createFinalStore = compose(devToolsWrapper)(createStore)
