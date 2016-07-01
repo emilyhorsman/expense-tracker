@@ -1,5 +1,7 @@
 import { Map } from 'immutable'
 
+import { retrieveFromStorage } from '~/helpers/Storage'
+
 const getRecords = (state, model) => {
 	if (state.hasOwnProperty(model)) {
 		return state[model]
@@ -16,7 +18,9 @@ reducer.ADD_RECORD = (state, { model, record }) => {
 	}
 
 	const records = getRecords(state, model)
-	const id = (records.maxBy((_, k) => k) || 0) + 1
+
+	// Using Strings for keys due to JSON storage.
+	const id = ((records.maxBy((_, k) => parseInt(k)) || 0) + 1).toString()
 
 	return {
 		...state,
@@ -42,7 +46,8 @@ reducer.DELETE_RECORD = (state, { model, id }) => {
 	}
 }
 
-const Models = (state = {}, action) => {
+const initialState = retrieveFromStorage('models')
+const Models = (state = initialState, action) => {
 	if (typeof reducer[state.type] === 'function') {
 		return reducer[state.type](state, action)
 	}

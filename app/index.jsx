@@ -22,6 +22,7 @@ const store = createFinalStore(reducer)
 import { writeToStorage } from './helpers/Storage'
 const handleChange = () => {
 	const state = store.getState()
+	writeToStorage('Models', state.Models)
 }
 store.subscribe(handleChange)
 
