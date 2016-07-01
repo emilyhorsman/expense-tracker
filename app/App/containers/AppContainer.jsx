@@ -1,8 +1,6 @@
 import React, { Component, cloneElement } from 'react'
 import { connect } from 'react-redux'
 
-import SettingsPanelContainer from '~/Settings/containers/SettingsPanelContainer'
-
 class AppContainer extends Component {
 	render() {
 		const { children, currency } = this.props
@@ -10,8 +8,6 @@ class AppContainer extends Component {
 
 		return (
 			<div className="container-fluid">
-				<SettingsPanelContainer />
-
 				{React.Children.map(children, child => cloneElement(child, childProps))}
 			</div>
 		)
